@@ -25,11 +25,18 @@ import AutoSizer from 'react-virtualized/dist/commonjs/AutoSizer';
 import styled from 'styled-components';
 import {theme} from 'kepler.gl/styles';
 
-import sampleData, {config} from './data/sample-data';
+import {processCsvData} from 'kepler.gl/processors';
 
-const MAPBOX_TOKEN = process.env.MapboxAccessToken; // eslint-disable-line
-// const MAPBOX_TOKEN = 'pk.eyJ1IjoiYm1leWJvb20iLCJhIjoiY2txdmNhcTJ1MDR3NjJ5cXlvb3J6aGR2YiJ9.ZrjEkTGFSJhydwdCuN-A'; // eslint-disable-line
-const DATA_URL = 'https://raw.githubusercontent.com/bmeyboom/random/main/UAVFlightGrid.csv';
+import sampleData, {config, uavData} from './data/sample-data';
+
+const uavDataset = {
+  info: {id: 'uav_data', label: 'UAV Data'},
+  data: processCsvData(uavData)
+ };
+
+// const MAPBOX_TOKEN = process.env.MapboxAccessToken; // eslint-disable-line
+const MAPBOX_TOKEN = 'pk.eyJ1IjoiYm1leWJvb20iLCJhIjoiY2txdmNhcTJ1MDR3NjJ5cXlvb3J6aGR2YiJ9.ZrjEkNmTGFSJhydwdCuN-A'; // eslint-disable-line
+const DATA_URL = 'https://raw.githubuseprcontent.com/bmeyboom/random/main/UAVFlightGrid.csv';
 
 import {
   SidebarFactory,
@@ -75,14 +82,12 @@ class App extends Component {
     this.props.dispatch(wrapTo(
       'map1', 
       addDataToMap({
-        datasets: sampleData, 
-        // datasets: DATA_URL,
+        // datasets: sampleData, 
+        datasets: [uavDataset],
         config: config
       })
       )
     );
-    // this.props.dispatch(loadRemoteMap({dataUrl: 'https://raw.githubusercontent.com/bmeyboom/random/main/UAVFlightGrid.csv'}));
-
   }
 
   render() {
