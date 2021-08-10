@@ -83,7 +83,11 @@ class App extends Component {
       'map1', 
       addDataToMap({
         // datasets: sampleData, 
-        datasets: [uavDataset],
+        // datasets: [uavDataset, sampleData],
+        datasets: uavDataset,
+        options: {
+          centerMap: false
+        },
         config: config
       })
       )
@@ -97,6 +101,7 @@ class App extends Component {
           {({height, width}) => (
             <KeplerGl 
             mapboxApiAccessToken={MAPBOX_TOKEN} 
+            styleType='satellite'
             id="map1" 
             width={width} 
             height={height} />
