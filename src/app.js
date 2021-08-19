@@ -36,7 +36,7 @@ import UAVFlightGridCSV from './data/UAV_Flight_Grid'
 // import simulatedNorthernRedOakFairviewCSV from './data/sim_data_NorthernRedOak_Fairview';
 // import { simulatedPinOakCSV } from './data/sim_data_PinOak';
 // import { simulatedWesternRedCedarCSV } from './data/sim_data_WesternRedCedar';
-import { simulatedTreeDataCSV } from './data/simulatedTreeData';
+import simulatedTreeDataCSV from './data/simulatedTreeData';
 import config from './config/config'
 
 // END IMPORTS
@@ -46,17 +46,20 @@ import config from './config/config'
 //   info:{id:, label: },
 //   data:processCsvData()
 // };
+const uavData = processCsvData(UAVFlightGridCSV)
+const treeData = processCsvData(simulatedTreeDataCSV)
+
+var data = uavData
 const uavDataset = {
+  data, 
   info: {id: 'uav_data', label: 'UAV Data'},
-  data: processCsvData(UAVFlightGridCSV)
  };
+
+data = treeData
 const treeDataset = {
+  data,
   info: {id:'tree_data', label: 'Simulated Tree Data'},
-  data: processCsvData(simulatedTreeDataCSV)
 };
-
-
-// create config here
 
 // const MAPBOX_TOKEN = process.env.MapboxAccessToken; // eslint-disable-line
 const MAPBOX_TOKEN = 'pk.eyJ1IjoiYm1leWJvb20iLCJhIjoiY2txdmNhcTJ1MDR3NjJ5cXlvb3J6aGR2YiJ9.ZrjEkNmTGFSJhydwdCuN-A'; // eslint-disable-line
@@ -69,32 +72,17 @@ import {
 } from 'kepler.gl/components';
 
 // Custom features
-import CustomPanelHeaderFactory from './components/panel-header';
-import CustomSidebarFactory from './components/side-bar';
-import CustomPanelToggleFactory from './components/panel-toggle';
-import CustomSidePanelFactory from './components/custom-panel';
+// import CustomPanelHeaderFactory from './components/panel-header';
+// import CustomSidebarFactory from './components/side-bar';
+// import CustomPanelToggleFactory from './components/panel-toggle';
+// import CustomSidePanelFactory from './components/custom-panel';
 import CustomLayerHoverInfoFactory from './components/custom-layer-hover';
-import { TimeWidgetFactory } from 'kepler.gl/components';
+// import { TimeWidgetFactory } from 'kepler.gl/components';
 
 // Inject custom components
 const KeplerGl = injectComponents([
   [LayerHoverInfoFactory, CustomLayerHoverInfoFactory],
 ]);
-
-// // create map styple and config
-// const StyledMapConfigDisplay = styled.div`
-//   position: absolute;
-//   z-index: 100;
-//   bottom: 10px;
-//   right: 10px;
-//   background-color: ${theme.sidePanelBg};
-//   font-size: 11px;
-//   width: 300px;
-//   color: ${theme.textColor};
-//   word-wrap: break-word;
-//   min-height: 60px;
-//   padding: 10px;
-// `;
 
 // Create the app by adding data and configuration
 class App extends Component {
@@ -102,9 +90,9 @@ class App extends Component {
     this.props.dispatch(wrapTo(
       'map1', 
       addDataToMap({
-        // datasets: sampleData, 
-        // datasets: [uavDataset, sampleData],
-        datasets: uavDataset,
+        // make sure to include all datasets you want to see here
+        // datasets: [uavDataset, treeDataset],
+        datasets: [treeDataset, uavDataset],
         options: {
           centerMap: false
         },

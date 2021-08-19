@@ -1,4 +1,4 @@
-export const simulatedTreeDataCSV = `,VWC,Temp,Lat,Lon,Tree_type
+export const simulatedTreeDataCSV = `timestamp,VWC,Temp,Lat,Lon,Tree_type
 2021-05-01 00:00:00,1772,18,49.2629,-123.251,NorthernRedOak_FairView
 2021-05-01 01:00:00,1807,18,49.2629,-123.251,NorthernRedOak_FairView
 2021-05-01 02:00:00,1796,18,49.2629,-123.251,NorthernRedOak_FairView
@@ -8831,3 +8831,5 @@ export const simulatedTreeDataCSV = `,VWC,Temp,Lat,Lon,Tree_type
 2021-07-31 21:00:00,1552,22,49.26273,-123.251,WesternRedCedar
 2021-07-31 22:00:00,1566,22,49.26273,-123.251,WesternRedCedar
 2021-07-31 23:00:00,1587,22,49.26273,-123.251,WesternRedCedar`
+
+export default simulatedTreeDataCSV;

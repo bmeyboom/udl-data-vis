@@ -9999,3 +9999,5 @@ export const UAVFlightGridCSV = `OID_,Longitude,Latitude,value,timestamp
 9998.0,-123.2453766,49.2669067,4.0,2015-11-03 14:25
 9999.0,-123.2452774,49.2669067,3.0,2015-11-03 14:25
 10000.0,-123.2451782,49.2669067,2.0,2015-11-03 14:25`
+
+export default UAVFlightGridCSV;
