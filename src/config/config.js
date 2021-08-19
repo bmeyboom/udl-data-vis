@@ -78,47 +78,6 @@ export const config = {
             // sizeScale: 'linear'
           }
         } 
-        ,           
-        // {
-        //   type: 'hexagon',
-        //   config: {
-        //     dataId: 'tree_data',
-        //     label: 'Greenness',
-        //     color: [23, 184, 190],
-        //     columns: {
-        //       lat: 'Lat',
-        //       lng: 'Lon'
-        //     },
-        //     isVisible: true,
-        //     visConfig: {
-        //       opacity: 0.2,
-        //       worldUnitSize: 0.01, // controls how fine the hexagon grid is
-        //       resolution: 0.01,
-        //       colorRange: {
-        //         name: 'ColorBrewer GnBu-6',
-        //         type: 'sequential',
-        //         category: 'ColorBrewer',
-        //         colors: ['#f0f9e8', '#ccebc5', '#a8ddb5', '#7bccc4', '#43a2ca', '#0868ac'],
-        //         reversed: false
-        //       },
-        //       coverage: 1, // Change what portion of each grid cell is covered by a color square. https://docs.kepler.gl/docs/user-guides/d-layer-attributes
-        //       sizeRange: [0, 4],
-        //       percentile: [0, 100],
-        //       elevationPercentile: [0, 100],
-        //       elevationScale: 1,
-        //       'hi-precision': true,
-        //       colorAggregation: 'average',
-        //       sizeAggregation: 'average',
-        //       enable3d: true
-        //     }
-        //   },
-        //   visualChannels: {
-        //     colorField: 'null',
-        //     colorScale: 'quantile',
-        //     sizeField: null,
-        //     sizeScale: 'linear'
-        //   }
-        // },
         
       //   UAV Data visualization
 
@@ -194,7 +153,8 @@ export const config = {
       //     }
       //   }
       // ],
-        {
+         
+        ,{
           id: 'heatmap_layer', // TEMPERATURE
           type: 'heatmap',
           config: {
@@ -203,12 +163,12 @@ export const config = {
             columns: {lat: 'Lat', lng: 'Lon'},
             isVisible: true,
             visConfig: {
-              opacity: 0.8,
+              opacity: 0.9,
               colorRange: {
-                name: 'Temperature',
+                name: 'Global Warming',
                 type: 'sequential',
-                category: 'Data Viz',
-                colors: ['#dc143c', '#fd5e53', '#faf0be', '#1aff1a', '#e7feff', '#87cefa']
+                category: 'Uber',
+                colors: ['#5A1846', '#900C3F', '#C70039', '#E3611C', '#F1920E', '#FFC300']
               },
               reversed: true,
               colorAggregation: 'average',
@@ -228,36 +188,36 @@ export const config = {
       ],
 
       // control which filters are visible here
-      // filters: [
-      //   {
-      //     id:'timerange_slider',
-      //     dataId: 'uav_data', // dataset ID
-      //     name:'timestamp', // field to filter on
-      //     type:'timeRange',
-      //     plotType: 'histogram',
-      //     enlarged: true
-      //   },
-      //   {
-      //     id:'timerange_slider',
-      //     dataId: 'tree_data', // dataset ID
-      //     name:'timestamp', // field to filter on
-      //     type:'timeRange',
-      //     plotType: 'histogram',
-      //     enlarged: true
-      //   },
-      //   // can add more after this
-      // ], 
+      filters: [
+        {
+          id:'timerange_slider',
+          dataId: 'uav_data', // dataset ID
+          name:'timestamp', // field to filter on
+          type:'timeRange',
+          plotType: 'histogram',
+          enlarged: false
+        },
+        {
+          id:'timerange_slider',
+          dataId: 'tree_data', // dataset ID
+          name:'timestamp', // field to filter on
+          type:'timeRange',
+          plotType: 'histogram',
+          enlarged: true
+        },
+        // can add more after this
+      ], 
 
       // control which datasets can be interacted with here (only)
       interactionConfig: {
         tooltip: {
-          fieldsToShow: {uav_data: ['value', 'Latitude', 'Longitude', 'timestamp']},
+          fieldsToShow: {uav_data: ['value', 'timestamp']},
           compareMode: false,
           compareType: 'absolute',
           enabled: true
         },
         tooltip: {
-          fieldsToShow: {tree_data: ['Tree_type', 'VWC', 'Temp', 'Lat', 'Lon', 'timestamp']},
+          fieldsToShow: {tree_data: ['Tree_type', 'VWC', 'Temp', 'timestamp']},
           compareMode: false,
           compareType: 'absolute',
           enabled: true 
@@ -265,7 +225,7 @@ export const config = {
       },
     },
 
-    // mapStyle: {styleType: 'satellite'},
+    // mapStyle: {styleType: 'satellite'}, // another map type option
     mapStyle: {
       styleType: 'terrain',
       mapStyles: {

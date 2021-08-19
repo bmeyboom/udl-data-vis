@@ -24,22 +24,32 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {addDataToMap, wrapTo} from 'kepler.gl/actions';
 import AutoSizer from 'react-virtualized/dist/commonjs/AutoSizer';
-// import styled from 'styled-components';
-// import {theme} from 'kepler.gl/styles';
+import styled from 'styled-components';
+import {theme} from 'kepler.gl/styles';
 
 // CSV processor
 import {processCsvData} from 'kepler.gl/processors';
 
 // import and config data here
 import UAVFlightGridCSV from './data/UAV_Flight_Grid'
-// import { simulatedNorthernRedOakKaiserCSV } from './data/sim_data_NorthernRedOak_Kaiser';
-// import simulatedNorthernRedOakFairviewCSV from './data/sim_data_NorthernRedOak_Fairview';
-// import { simulatedPinOakCSV } from './data/sim_data_PinOak';
-// import { simulatedWesternRedCedarCSV } from './data/sim_data_WesternRedCedar';
 import simulatedTreeDataCSV from './data/simulatedTreeData';
 import config from './config/config'
 
 // END IMPORTS
+
+const StyledMapConfigDisplay = styled.div`
+  position: absolute;
+  z-index: 100;
+  bottom: 10px;
+  right: 10px;
+  background-color: ${theme.sidePanelBg};
+  font-size: 11px;
+  width: 300px;
+  color: ${theme.textColor};
+  word-wrap: break-word;
+  min-height: 60px;
+  padding: 10px;
+`;
 
 // Format datasets using: 
 // const name = {
@@ -68,20 +78,22 @@ const DATA_URL = 'https://raw.githubuseprcontent.com/bmeyboom/random/main/UAVFli
 
 import {
   LayerHoverInfoFactory,
-  injectComponents
+  injectComponents,
+  PanelHeaderFactory
 } from 'kepler.gl/components';
 
 // Custom features
-// import CustomPanelHeaderFactory from './components/panel-header';
-// import CustomSidebarFactory from './components/side-bar';
-// import CustomPanelToggleFactory from './components/panel-toggle';
-// import CustomSidePanelFactory from './components/custom-panel';
+import CustomPanelHeaderFactory from './components/panel-header';
+import CustomSidebarFactory from './components/side-bar';
+import CustomPanelToggleFactory from './components/panel-toggle';
+import CustomSidePanelFactory from './components/custom-panel';
 import CustomLayerHoverInfoFactory from './components/custom-layer-hover';
-// import { TimeWidgetFactory } from 'kepler.gl/components';
+import { TimeWidgetFactory } from 'kepler.gl/components';
 
 // Inject custom components
 const KeplerGl = injectComponents([
   [LayerHoverInfoFactory, CustomLayerHoverInfoFactory],
+  [PanelHeaderFactory, CustomPanelHeaderFactory]
 ]);
 
 // Create the app by adding data and configuration
@@ -118,11 +130,11 @@ class App extends Component {
             height={height} />
           )}
         </AutoSizer>
-        {/* <StyledMapConfigDisplay>
+        <StyledMapConfigDisplay>
           {this.props.app.mapConfig
             ? JSON.stringify(this.props.app.mapConfig)
             : 'Click Save Config to Display Config Here'}
-        </StyledMapConfigDisplay> */}
+        </StyledMapConfigDisplay>
       </div>
     );
   }
