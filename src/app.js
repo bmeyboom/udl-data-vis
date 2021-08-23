@@ -79,21 +79,18 @@ const DATA_URL = 'https://raw.githubuseprcontent.com/bmeyboom/random/main/UAVFli
 import {
   LayerHoverInfoFactory,
   injectComponents,
-  PanelHeaderFactory
+  PanelHeaderFactory, 
+  PanelToggleFactory
 } from 'kepler.gl/components';
 
 // Custom features
 import CustomPanelHeaderFactory from './components/panel-header';
-import CustomSidebarFactory from './components/side-bar';
 import CustomPanelToggleFactory from './components/panel-toggle';
-import CustomSidePanelFactory from './components/custom-panel';
 import CustomLayerHoverInfoFactory from './components/custom-layer-hover';
-import { TimeWidgetFactory } from 'kepler.gl/components';
 
 // Inject custom components
 const KeplerGl = injectComponents([
   [LayerHoverInfoFactory, CustomLayerHoverInfoFactory],
-  [PanelHeaderFactory, CustomPanelHeaderFactory]
 ]);
 
 // Create the app by adding data and configuration
@@ -103,7 +100,6 @@ class App extends Component {
       'map1', 
       addDataToMap({
         // make sure to include all datasets you want to see here
-        // datasets: [uavDataset, treeDataset],
         datasets: [treeDataset, uavDataset],
         options: {
           centerMap: false
@@ -130,11 +126,6 @@ class App extends Component {
             height={height} />
           )}
         </AutoSizer>
-        <StyledMapConfigDisplay>
-          {this.props.app.mapConfig
-            ? JSON.stringify(this.props.app.mapConfig)
-            : 'Click Save Config to Display Config Here'}
-        </StyledMapConfigDisplay>
       </div>
     );
   }
