@@ -35,6 +35,15 @@ import UAVFlightGridCSV from './data/UAV_Flight_Grid'
 import simulatedTreeDataCSV from './data/simulatedTreeData';
 import config from './config/config'
 
+import {
+  LayerHoverInfoFactory,
+  injectComponents,
+  PanelHeaderFactory
+} from 'kepler.gl/components';
+
+// Custom features
+import CustomPanelHeaderFactory from './components/panel-header';
+import CustomLayerHoverInfoFactory from './components/custom-layer-hover';
 // END IMPORTS
 
 const StyledMapConfigDisplay = styled.div`
@@ -74,21 +83,6 @@ const treeDataset = {
 // const MAPBOX_TOKEN = process.env.MapboxAccessToken; // eslint-disable-line
 const MAPBOX_TOKEN = 'pk.eyJ1IjoiYm1leWJvb20iLCJhIjoiY2txdmNhcTJ1MDR3NjJ5cXlvb3J6aGR2YiJ9.ZrjEkNmTGFSJhydwdCuN-A'; // eslint-disable-line
 const DATA_URL = 'https://raw.githubuseprcontent.com/bmeyboom/random/main/UAVFlightGrid.csv';
-
-
-import {
-  LayerHoverInfoFactory,
-  injectComponents,
-  PanelHeaderFactory
-} from 'kepler.gl/components';
-
-// Custom features
-import CustomPanelHeaderFactory from './components/panel-header';
-import CustomSidebarFactory from './components/side-bar';
-import CustomPanelToggleFactory from './components/panel-toggle';
-import CustomSidePanelFactory from './components/custom-panel';
-import CustomLayerHoverInfoFactory from './components/custom-layer-hover';
-import { TimeWidgetFactory } from 'kepler.gl/components';
 
 // Inject custom components
 const KeplerGl = injectComponents([
