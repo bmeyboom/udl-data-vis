@@ -130,11 +130,6 @@ class App extends Component {
             height={height} />
           )}
         </AutoSizer>
-        <StyledMapConfigDisplay>
-          {this.props.app.mapConfig
-            ? JSON.stringify(this.props.app.mapConfig)
-            : 'Click Save Config to Display Config Here'}
-        </StyledMapConfigDisplay>
       </div>
     );
   }

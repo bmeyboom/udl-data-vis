@@ -4,6 +4,8 @@ export const config = {
     visState: {
       // add or manipulate layers here
       layers: [
+
+        // UAV DATA VISUALIZATIONS: 
         {
           type: 'point',
           config: {
@@ -16,7 +18,7 @@ export const config = {
             label: 'Greenness', // layer name
             isVisible: true,
             visConfig: {
-              opacity: 0.01,
+              opacity: 0.007,
               worldUnitSize: 0.01, // controls how fine the grid is
               resolution: 0.01,
               colorRange: {
@@ -34,6 +36,7 @@ export const config = {
               name: 'value', // what variable determines the point colours
               type: 'real'
             },
+            // UNCOMMENT THE FOLLOWING TO HAVE THE POINT SIZES CHANGE DEPENDING ON THE VALUES
             // sizeField: {
             //   name: 'value',
             //   type: 'real'
@@ -41,9 +44,10 @@ export const config = {
             // sizeScale: 'exponential'
           }
         },
-        // Tree sensor data vizualization,   
+
+        // TREE SENSOR DATA VISUALIZATIONS: 
         {
-          type: 'point', // TREE TYPE
+          type: 'point', // TEMPERATURE POINTS
           config: {
             dataId: 'tree_data',
             columns: {
@@ -51,33 +55,124 @@ export const config = {
               lng: 'Lon'
             },
             color: [255, 0, 0],
-            label: 'Tree type',
+            label: 'Temperature',
             isVisible: true,
             visConfig: {
+              radius: 10,
+              fixedRadius: false,
+              opacity: 0.0001,
+              outline: false,
+              thickness: 2,
+              radiusRange: [15, 20],
+              'hi-precision': true,
+              opacity: 0.0001, // has to be very low since there is a point for each data point
+              worldUnitSize: 0.01, // controls how fine the grid is
+              resolution: 0.01,
               colorRange: {
-                colorMap: [ // map colours to tree types (HTML)
-                  ['NorthernRedOak_FairView', '#e03c31'],
-                  ['NorthernRedOak_Kaiser', '#be4f62'],
-                  ['PinOak', '#008000'],
-                  ['WesternRedCedar', '#a52a2a']
-                ]
+                name: 'Red-Orange Temperature',
+                type: 'sequential',
+                category: 'Temperature',
+                colors: ['#FF7B2E','#F96815', '#BD3A02', '#E34602', '#FE0C0A', '#E62B09', '#BD3A02', '#B52838', '#751A24'],
+                reversed: false
               },
+            },
+            coverage: 1, // Change what portion of each grid cell is covered by a color square. https://docs.kepler.gl/docs/user-guides/d-layer-attributes
+          },
+          visualChannels: {
+            colorField: {
+              name: 'Temp',
+              type: 'real'
+            }
+            , 
+            sizeField: {
+              name: 'Temp',
+              type: 'real'
+            }
+            ,
+            sizeScale: 'linear'
+          }
+        },
+
+        {
+          type: 'point', // VWC POINTS
+          config: {
+            dataId: 'tree_data',
+            columns: {
+              lat: 'Lat',
+              lng: 'Lon'
+            },
+            color: [255, 0, 0],
+            label: 'Volumetric Water Content',
+            isVisible: true,
+            visConfig: {
+              radius: 10,
+              fixedRadius: false,
+              opacity: 0.001,
+              outline: false,
+              thickness: 2,
+              colorRange: {
+                name: 'Water',
+                type: 'sequential',
+                category: 'VWC',
+                colors: ['#EBF5FB ', '#AED6F1 ', '#5DADE2', '#2E86C1', '#21618C', '#1B4F72'],
+                reversed: true
+              },
+              radiusRange: [5, 10],
+              'hi-precision': true,
             }
           },
           visualChannels: {
             colorField: {
-              name: 'Tree_type',
-              type: 'string'
+              name: 'Temp',
+              type: 'real'
             }
-            // , 
-            // sizeField: {
-            //   name: 'VWC',
-            //   type: 'real'
-            // }
-            // ,
-            // sizeScale: 'linear'
+            , 
+            sizeField: {
+              name: 'Temp',
+              type: 'real'
+            }
+            ,
+            sizeScale: 'linear',
           }
-        } 
+        }  
+
+  // SOME SAMPLE LAYER CONFIGS
+        // {
+        //   type: 'point', // TREE TYPE POINTS
+        //   config: {
+        //     dataId: 'tree_data',
+        //     columns: {
+        //       lat: 'Lat',
+        //       lng: 'Lon'
+        //     },
+        //     color: [255, 0, 0],
+        //     label: 'Tree type',
+        //     isVisible: true,
+        //     visConfig: {
+        //       colorRange: {
+        //         colorMap: [ // map colours to tree types (HTML)
+        //           ['NorthernRedOak_FairView', '#e03c31'],
+        //           ['NorthernRedOak_Kaiser', '#be4f62'],
+        //           ['PinOak', '#008000'],
+        //           ['WesternRedCedar', '#a52a2a']
+        //         ]
+        //       },
+        //     }
+        //   },
+        //   visualChannels: {
+        //     colorField: {
+        //       name: 'Tree_type',
+        //       type: 'string'
+        //     }
+        //     // , 
+        //     // sizeField: {
+        //     //   name: 'VWC',
+        //     //   type: 'real'
+        //     // }
+        //     // ,
+        //     // sizeScale: 'linear'
+        //   }
+        // } 
         
       //   UAV Data visualization
 
@@ -154,37 +249,38 @@ export const config = {
       //   }
       // ],
          
-        ,{
-          id: 'heatmap_layer', // TEMPERATURE
-          type: 'heatmap',
-          config: {
-            dataId: 'tree_data', // dataset
-            label: 'Temperature', // layer name
-            columns: {lat: 'Lat', lng: 'Lon'},
-            isVisible: true,
-            visConfig: {
-              opacity: 0.9,
-              colorRange: {
-                name: 'Global Warming',
-                type: 'sequential',
-                category: 'Uber',
-                colors: ['#5A1846', '#900C3F', '#C70039', '#E3611C', '#F1920E', '#FFC300']
-              },
-              reversed: true,
-              colorAggregation: 'average',
-              radius: 20
-            }
-          },
-          visualChannels: {
-            colorField: {
-              name: 'Temp',
-              type: 'real'
-            },
-            colorScale: 'exponential',
-            weightField: 'Temp', 
-            weightScale: 'exponential'
-          }
-        }  
+        // ,
+        // {
+        //   id: 'heatmap_layer', // TEMPERATURE
+        //   type: 'heatmap',
+        //   config: {
+        //     dataId: 'tree_data', // dataset
+        //     label: 'Temperature', // layer name
+        //     columns: {lat: 'Lat', lng: 'Lon'},
+        //     isVisible: true,
+        //     visConfig: {
+        //       opacity: 0.9,
+        //       colorRange: {
+        //         name: 'Global Warming',
+        //         type: 'sequential',
+        //         category: 'Uber',
+        //         colors: ['#5A1846', '#900C3F', '#C70039', '#E3611C', '#F1920E', '#FFC300']
+        //       },
+        //       reversed: true,
+        //       colorAggregation: 'average',
+        //       radius: 20
+        //     }
+        //   },
+        //   visualChannels: {
+        //     colorField: {
+        //       name: 'Temp',
+        //       type: 'real'
+        //     },
+        //     colorScale: 'exponential',
+        //     weightField: 'Temp', 
+        //     weightScale: 'exponential'
+        //   }
+        // }  
       ],
 
       // control which filters are visible here
@@ -221,7 +317,8 @@ export const config = {
           compareMode: false,
           compareType: 'absolute',
           enabled: true 
-        }
+        },
+        layerBlending: 'normal' // https://docs.kepler.gl/docs/user-guides/b-kepler-gl-workflow/add-data-to-layers/d-blend-and-rearrange-layers
       },
     },
 
