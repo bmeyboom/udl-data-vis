@@ -32,6 +32,7 @@ export const setMapConfig = createAction(SET_MAP_CONFIG);
 // INITIAL_STATE
 const initialState = {
   appName: 'example',
+  styleType: 'satellite',
   loaded: false
 };
 
