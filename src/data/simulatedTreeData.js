@@ -1,3 +1,5 @@
+// Data simulated by Ibrahim
+
 export const simulatedTreeDataCSV = `timestamp,VWC,Temp,Lat,Lon,Tree_type
 2021-05-01 00:00:00,1772,18,49.2629,-123.251,NorthernRedOak_FairView
 2021-05-01 01:00:00,1807,18,49.2629,-123.251,NorthernRedOak_FairView

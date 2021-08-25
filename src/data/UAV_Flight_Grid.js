@@ -1,3 +1,5 @@
+// Data simulated by Angie
+
 export const UAVFlightGridCSV = `OID_,Longitude,Latitude,value,timestamp
 1.0,-123.2550735,49.2570076,4.0,2015-11-03 14:25
 2.0,-123.2549744,49.2570076,1.0,2015-11-03 14:25

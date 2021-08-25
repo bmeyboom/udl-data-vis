@@ -30,9 +30,10 @@ import {theme} from 'kepler.gl/styles';
 // CSV processor
 import {processCsvData} from 'kepler.gl/processors';
 
-// import and config data here
+// import and data here
 import UAVFlightGridCSV from './data/UAV_Flight_Grid'
 import simulatedTreeDataCSV from './data/simulatedTreeData';
+// import map config
 import config from './config/config'
 
 import {
@@ -60,11 +61,16 @@ const StyledMapConfigDisplay = styled.div`
   padding: 10px;
 `;
 
-// Format datasets using: 
+// TO FORMAT DATASETS USE THE FOLLOWING AND REPLACE THE <WRITING> PARTS: 
+
+// import <DATASET NAME IN FILE> from './data/<NAME OF FILE WHERE DATA IS>';
+// const importedData = processCsvData(<DATASET NAME IN FILE>)
+// var data = importedData
 // const name = {
-//   info:{id:, label: },
-//   data:processCsvData()
+//   info:{id: <DATASET VARIABLE NAME (NEW)>, label: <WHAT YOU WANT IT TO BE NAMED ON THE MAP>},
+//   data: data
 // };
+
 const uavData = processCsvData(UAVFlightGridCSV)
 const treeData = processCsvData(simulatedTreeDataCSV)
 
@@ -82,9 +88,9 @@ const treeDataset = {
 
 // const MAPBOX_TOKEN = process.env.MapboxAccessToken; // eslint-disable-line
 const MAPBOX_TOKEN = 'pk.eyJ1IjoiYm1leWJvb20iLCJhIjoiY2txdmNhcTJ1MDR3NjJ5cXlvb3J6aGR2YiJ9.ZrjEkNmTGFSJhydwdCuN-A'; // eslint-disable-line
-const DATA_URL = 'https://raw.githubuseprcontent.com/bmeyboom/random/main/UAVFlightGrid.csv';
 
-// Inject custom components
+
+// Inject custom components here
 const KeplerGl = injectComponents([
   [LayerHoverInfoFactory, CustomLayerHoverInfoFactory],
   [PanelHeaderFactory, CustomPanelHeaderFactory]
@@ -97,7 +103,6 @@ class App extends Component {
       'map1', 
       addDataToMap({
         // make sure to include all datasets you want to see here
-        // datasets: [uavDataset, treeDataset],
         datasets: [treeDataset, uavDataset],
         options: {
           centerMap: false
@@ -110,7 +115,7 @@ class App extends Component {
 
   // render the App/map
   render() {
-    return (
+    return ( // you can add any visuals to be rendered here
       <div style={{position: 'absolute', width: '100%', height: '100%'}}>
         <AutoSizer>
           {({height, width}) => (
@@ -123,7 +128,7 @@ class App extends Component {
             width={width} 
             height={height} />
           )}
-        </AutoSizer>
+        </AutoSizer> 
       </div>
     );
   }

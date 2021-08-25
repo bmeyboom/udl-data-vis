@@ -1,6 +1,7 @@
 {
   "scripts": {
-    "start": "react-scripts start",
+    "start": "webpack-dev-server --progress --hot --open",
+    "start-local": "webpack-dev-server --env.es6 --progress --hot --open",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
